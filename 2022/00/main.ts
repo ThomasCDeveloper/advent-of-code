@@ -21,6 +21,8 @@ if (fs.existsSync(day + "/b.example")) {
     console.log(" -Part 2: " + SolvePart2(day + "/a.example"))
 }
 
-console.log("== DATA ==")
-console.log(" -Part 1: " + SolvePart1(day + "/ab.input"))
-console.log(" -Part 2: " + SolvePart2(day + "/ab.input"))
+if (false) {
+    console.log("== DATA ==")
+    console.log(" -Part 1: " + SolvePart1(day + "/ab.input"))
+    console.log(" -Part 2: " + SolvePart2(day + "/ab.input"))
+}
