@@ -165,8 +165,6 @@ function SolvePart2(inputFile: string) {
         */
     }
 
-    PrintGrid(grid)
-
     return nbGrain + 1
 }
 
