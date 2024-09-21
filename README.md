@@ -2,8 +2,10 @@
 
 Every year I try a new language !
 
-- 2020 - Rust (_planned_)
-- 2021 - Zig (_planned_)
-- 2022 - Typescript (_in progress_)
-- 2023 - Golang (_to polish_)
-- 2024 - Ocaml (_to do..._)
+| Year | Language   | Status      |
+|------|------------|-------------|
+| 2020 | Rust       | TODO        |
+| 2021 | Zig        | TODO        |
+| 2022 | Typescript | In progress |
+| 2023 | Golang     | To polish   |
+| 2024 | Ocaml      | TODO        |
