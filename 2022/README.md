@@ -9,7 +9,7 @@ npm start XX/main.ts
 ```
 with XX being the number of the day.
 
-| Day | Status | Comment |
+| Day | Status | Difficulty |
 |----|----|----|
 | 01 | Done |  |
 | 02 | Done |  |
