@@ -10,6 +10,7 @@ npm start XX/main.ts
 with XX being the number of the day.
 
 | Day | Status | Comment |
+|----|----|----|
 | 01 | Done |  |
 | 02 | Done |  |
 | 03 | Done |  |
