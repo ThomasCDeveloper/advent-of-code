@@ -3,13 +3,29 @@ import fs from 'fs';
 
 const day = "16"
 
+function RecursiveWalk(currentValve: string, currentValue: number, time: number): number {
+    console.log(currentValve)
+    if (time < 0) {
+        return currentValue
+    }
+
+    let max = 0
+    dists.get(currentValve)!.forEach((dist, name) => {
+        let nextValue = RecursiveWalk(name, currentValue + 1, time - dist)
+        if (nextValue > max) {
+            max = currentValue
+        }
+    })
+    return max
+}
+
+let valveNames: string[] = []
+let valves = new Map<string, number>()
+let tunnels = new Map<string, string[]>()
+let dists = new Map<string, Map<string, number>>()
 
 function SolvePart1(inputFile: string) {
     let lines = readFile(inputFile).split("\n")
-
-    let valveNames: string[] = []
-    let valves = new Map<string, number>()
-    let tunnels = new Map<string, string[]>()
 
     for (let line of lines) {
         let name = line.split(" ")[1]
@@ -21,7 +37,6 @@ function SolvePart1(inputFile: string) {
         tunnels.set(name, tun)
     }
 
-    let dists = new Map<string, Map<string, number>>()
     for (let valve of valveNames) {
         if (valve != "AA" && valves.get(valve) != 0) {
             continue
@@ -57,7 +72,7 @@ function SolvePart1(inputFile: string) {
 
     console.log(dists)
 
-    return 0
+    return RecursiveWalk("AA", 0, 30)
 }
 
 function SolvePart2(inputFile: string) {
