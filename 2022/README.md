@@ -27,8 +27,8 @@ with XX being the number of the day.
 | 14 | Done | 🌶️ | |
 | 15 | Done | 🌶️🌶️ | |
 | 16 | Done | 🌶️🌶️🌶️🌶️🌶️ | |
-| 17 | Started |  | |
-| 18 |  |  | |
+| 17 | Started |  | Part 1 is very easy |
+| 18 | Done | 🌶️🌶️ | |
 | 19 |  |  | |
 | 20 |  |  | |
 | 21 |  |  | |

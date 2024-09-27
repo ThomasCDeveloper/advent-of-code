@@ -80,7 +80,7 @@ function SolvePart1(inputFile: string) {
 
 function SolvePart2(inputFile: string) {
     let wind = readFile(inputFile).split("")
-
+    console.log(wind.length)
     let shapes: [number, number][][] = [
         [[0, 0], [1, 0], [2, 0], [3, 0]], // -
         [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]], // +
@@ -95,7 +95,12 @@ function SolvePart2(inputFile: string) {
     let shapeIndex = 0
     let windIndex = 0
 
-    while (shapeIndex < 2022) {
+    while (shapeIndex < 100000) {
+        if (shapeIndex % 5 == 0 && windIndex % wind.length == 0) {
+            console.log(shapeIndex, windIndex % wind.length)
+        }
+
+
         let newRock = shapes[shapeIndex % 5].map((xy) => [xy[0] + 2, xy[1] + maxHeight + 3])
 
         let isLocked = false
@@ -138,13 +143,11 @@ function SolvePart2(inputFile: string) {
             }
         }
 
-        let o = maxHeight
         newRock.forEach((newRockPart) => {
             maxHeight = Math.max(maxHeight, newRockPart[1] + 1)
             column.push([newRockPart[0], newRockPart[1]])
         })
 
-        console.log(maxHeight - o)
         column.filter((xy) => {
             xy[1] >= maxHeight - 20
         })
@@ -159,7 +162,7 @@ console.log(" -Part 1: " + SolvePart1(day + "/a.example"))
 if (fs.existsSync(day + "/b.example")) {
     console.log(" -Part 2: " + SolvePart2(day + "/b.example"))
 } else {
-    console.log(" -Part 2: " + SolvePart2(day + "/a.example"))
+    //console.log(" -Part 2: " + SolvePart2(day + "/a.example"))
 }
 
 if (true) {
