@@ -35,4 +35,4 @@ with XX being the number of the day.
 | 22 | Done | 🌶️ | Very cool part 2, quite unhappy with my solution|
 | 23 |  |  | |
 | 24 |  |  | |
-| 25 |  |  | |
+| 25 | Done | 🫑 | |
