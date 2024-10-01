@@ -5,6 +5,7 @@ const day = "23"
 
 function SolvePart1(inputFile: string) {
     let monkeys: [number, number][] = []
+    let choices: Record<number, [number, number]> = {}
 
     let lines = readFile(inputFile).split("\n")
     for (let y = 0; y < lines.length; y++) {
@@ -16,7 +17,9 @@ function SolvePart1(inputFile: string) {
     }
 
     for (let i = 0; i < 10; i++) {
-        // do stuff
+        for (let j = 0; j < monkeys.length; j++) {
+
+        }
     }
 
     let maxX = Math.max(...monkeys.map((m) => m[0]))
