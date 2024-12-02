@@ -1,4 +1,5 @@
 *.cmi
 *.cmo
 *.txt
+*.sh
 main
