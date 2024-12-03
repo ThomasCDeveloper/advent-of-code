@@ -2,6 +2,9 @@ open Base
 open Stdio
 
 let filename = "inputs/day03.txt"
+let filter_1 = Re.Pcre.re {|mul\(\d+,\d+\)|} |> Re.compile
+let filter_2 = Re.Pcre.re {|do\(\)|don't\(\)|mul\(\d+,\d+\)|} |> Re.compile
+let extract_mults line filter = Re.matches filter line
 
 let mult rule =
   let numbers =
@@ -12,17 +15,12 @@ let mult rule =
   in
   List.fold_left ~f:(fun acc x -> acc * Int.of_string x) ~init:1 numbers
 
-let filter1 = Re.Pcre.re {|mul\(\d+,\d+\)|} |> Re.compile
-let extract_mults line filter = Re.matches filter line
-
 let part1 line =
-  let mults = extract_mults line filter1 in
+  let mults = extract_mults line filter_1 in
   List.fold_left ~f:(fun acc x -> acc + mult x) ~init:0 mults
 
-let filter2 = Re.Pcre.re {|do\(\)|don't\(\)|mul\(\d+,\d+\)|} |> Re.compile
-
 let part2 line =
-  let mults_and_dos = extract_mults line filter2 in
+  let mults_and_dos = extract_mults line filter_2 in
   let rec do_or_dont elements do_ acc =
     match elements with
     | [] -> acc
