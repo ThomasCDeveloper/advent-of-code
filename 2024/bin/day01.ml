@@ -37,7 +37,7 @@ let part2 lefts rights =
 let filename = "input.txt"
 let length = match filename with "input.txt" -> 5 | _ -> 1
 
-let () =
+let run () =
   let lines = read_file filename in
   let lefts = List.sort Int.compare (extract_lefts lines length) in
   let rights = List.sort Int.compare (extract_rights lines length) in

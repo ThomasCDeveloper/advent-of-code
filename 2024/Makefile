@@ -29,4 +29,4 @@ time:
 	@if [ -z "$(DAY)" ]; then \
 		read -p "Enter the day number to run: " DAY; \
 	fi; \
-	hyperfine "_build/default/bin/main.exe $$DAY"
+	hyperfine "_build/default/bin/main.exe $$DAY" -i

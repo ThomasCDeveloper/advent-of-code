@@ -37,7 +37,7 @@ let evaluate_numbers numbers =
       let rec compute_differences acc lst =
         match lst with
         | a :: (b :: _ as rest) -> compute_differences ((b - a) :: acc) rest
-        | _ -> List.rev acc
+        | _ -> acc
       in
       compute_differences [] lst
     in
@@ -80,7 +80,7 @@ let part2 lines =
 
 let filename = "input.txt"
 
-let () =
+let run () =
   let lines = read_file filename in
   print_string ("Solution to part 1: " ^ string_of_int (part1 lines) ^ "\n");
   print_string ("Solution to part 2: " ^ string_of_int (part2 lines) ^ "\n")
