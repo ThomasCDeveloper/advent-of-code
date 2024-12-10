@@ -1,7 +1,7 @@
 open Base
 open Stdio
 
-let filename = "input/day00.tst"
+let filename = "inputs/day00.tst"
 
 let run () =
   (* let content = In_channel.read_all filename in
