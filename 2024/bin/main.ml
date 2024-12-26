@@ -10,4 +10,7 @@ let () =
   | "6" -> Day06.run ()
   | "7" -> Day07.run ()
   | "8" -> Day08.run ()
+  | "9" -> Day09.run ()
+  | "10" -> ()
+  | "14" -> Day14.run ()
   | _ -> Printf.printf "Invalid day: %s\n" day
