@@ -1,7 +1,7 @@
 package main
 
-import aoc01 "ThomasCDeveloper/advent-of-code/2023/01"
+import aoc02 "ThomasCDeveloper/advent-of-code/2023/02"
 
 func main() {
-	aoc01.Run()
+	aoc02.Run()
 }

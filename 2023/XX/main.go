@@ -1,8 +1,15 @@
 package aocxx
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func Run() {}
+var path = "inputs/xx.input"
+
+func Run() {
+	SolveA()
+	SolveB()
+}
 
 func SolveA() {
 
