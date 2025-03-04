@@ -27,6 +27,7 @@ I don't believe Go is the best language to tackle advent of code, as its error h
 | 01 | Easy | Easy but quite _difficult_ for a first day, I would say |
 | 02 | Easy | Easier than day 1 |
 | 03 | Mild | Some edge cases were quite tideous to debug but still somewhat easy |
+| 04 | Easy | Still quite easy |
 
 ## Notes
 
