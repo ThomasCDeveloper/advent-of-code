@@ -18,7 +18,7 @@ You shall create files like `./inputs/01.input.test` or `./inputs/01b.input.test
 
 I really dig Go. Its syntax is very simple and quick to learn, and it provides fantastics results. I particularly like the "poor" (some might say essential) standard library, as it made me code almost everything, and I think it is a very good entry point as a software engineer.
 
-I don't believe Go is the best language to tackle advent of code, as its error handling system might be quite annoying at times for this kind of cases where you _know_ that everything would go right. But for production software, one would guess it would be amazing.
+I don't believe Go is the best language to tackle advent of code, as its error handling system might be quite annoying at times for this kind of cases where you _know_ that everything will go right. But for production software, one would guess it would be amazing.
 
 ## Thoughts on 2023 advent of code
 
@@ -26,6 +26,7 @@ I don't believe Go is the best language to tackle advent of code, as its error h
 |----|----|----|
 | 01 | Easy | Easy but quite _difficult_ for a first day, I would say |
 | 02 | Easy | Easier than day 1 |
+| 03 | Mild | Some edge cases were quite tideous to debug but still somewhat easy |
 
 ## Notes
 
