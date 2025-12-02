@@ -5,6 +5,7 @@ import (
 	aoc02 "ThomasCDeveloper/advent-of-code/2023/02"
 	aoc03 "ThomasCDeveloper/advent-of-code/2023/03"
 	aoc04 "ThomasCDeveloper/advent-of-code/2023/04"
+	aoc05 "ThomasCDeveloper/advent-of-code/2023/05"
 	"fmt"
 )
 
@@ -13,10 +14,11 @@ var days = map[string]func(){
 	"02": aoc02.Run,
 	"03": aoc03.Run,
 	"04": aoc04.Run,
+	"05": aoc05.Run,
 }
 
 func main() {
-	days["04"]()
+	days["05"]()
 	//Benchmark(RunAll, 50)
 }
 
