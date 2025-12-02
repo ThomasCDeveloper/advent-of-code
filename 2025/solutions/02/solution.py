@@ -10,15 +10,13 @@ def check_num(num):
     string = str(num)
     if len(string) % 2 == 1:
         return False
-    if string[: int(len(string) / 2)] == string[int(len(string) / 2) :]:
+    if string == string[int(len(string) / 2) :] * 2:
         return True
     return False
 
 
-def part1(data):
+def part1(ranges):
     count = 0
-    ranges = [[int(a.split("-")[0]), int(a.split("-")[1])] for a in data[0].split(",")]
-
     for [low, high] in ranges:
         for i in range(low, high + 1):
             if check_num(i):
@@ -29,12 +27,9 @@ def part1(data):
 
 def check_num_length(num, i):
     token = num[:i]
-    j = 0
-    while j < len(num):
-        if num[j : j + i] != token:
-            return False
-        j += len(token)
-    return True
+    if num == token * (len(num) // i):
+        return True
+    return False
 
 
 def check_num2(num):
@@ -45,10 +40,8 @@ def check_num2(num):
     return False
 
 
-def part2(data):
+def part2(ranges):
     count = 0
-    ranges = [[int(a.split("-")[0]), int(a.split("-")[1])] for a in data[0].split(",")]
-
     for [low, high] in ranges:
         for i in range(low, high + 1):
             if check_num2(i):
@@ -69,5 +62,6 @@ if __name__ == "__main__":
     )
 
     data = parse_input(file_path)
-    print("Part 1:", part1(data))
-    print("Part 2:", part2(data))
+    ranges = [[int(a.split("-")[0]), int(a.split("-")[1])] for a in data[0].split(",")]
+    print("Part 1:", part1(ranges))
+    print("Part 2:", part2(ranges))
