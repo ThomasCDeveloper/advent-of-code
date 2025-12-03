@@ -3,58 +3,52 @@ import utils
 from pathlib import Path
 
 
-def parse_input(file_path):
-    with open(file_path) as f:
-        return [line.strip() for line in f.readlines()]
-
-
 def check_num(num):
-    string = str(num)
-    if len(string) % 2 == 1:
+    s = str(num)
+    n = len(s)
+    if n % 2 == 1:
         return False
-    if string == string[int(len(string) / 2) :] * 2:
-        return True
-    return False
+    return s[: n // 2] == s[n // 2 :]
 
 
 def part1(ranges):
-    count = 0
-    for [low, high] in ranges:
+    total = 0
+    for low, high in ranges:
         for i in range(low, high + 1):
-            if check_num(i):
-                count += i
-
-    return count
-
-
-def check_num_length(num, i):
-    token = num[:i]
-    if num == token * (len(num) // i):
-        return True
-    return False
+            s = str(i)
+            n = len(s)
+            if not (n & 1) and s[: n // 2] == s[n // 2 :]:
+                total += i
+    return total
 
 
 def check_num2(num):
-    string = str(num)
-    for i in range(1, len(string)):
-        if check_num_length(string, i):
+    s = str(num)
+    n = len(s)
+    for i in range(1, n // 2 + 1):
+        if n % i == 0 and s == s[:i] * (n // i):
             return True
     return False
 
 
 def part2(ranges):
-    count = 0
-    for [low, high] in ranges:
+    total = 0
+    for low, high in ranges:
         for i in range(low, high + 1):
-            if check_num2(i):
-                count += i
-
-    return count
+            s = str(i)
+            n = len(s)
+            for k in range(1, n // 2 + 1):
+                if n % k == 0 and s == s[:k] * (n // k):
+                    total += i
+                    break
+    return total
 
 
 if __name__ == "__main__":
     BASE = Path(__file__).resolve().parent
     file_path = BASE / utils.get_mode(sys.argv)
-    data = utils.parse_input_lines(file_path)
+    data = [
+        list(map(int, x.split("-"))) for x in utils.parse_input(file_path).split(",")
+    ]
     print("Part 1:", part1(data))
     print("Part 2:", part2(data))
