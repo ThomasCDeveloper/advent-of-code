@@ -1,16 +1,22 @@
-.PHONY: run test clean init
+.PHONY: run test new
+
+SOLUTIONS := $(shell find solutions -maxdepth 1 -type d -printf "%f\n" | grep -E '^[0-9]{2}$$' | sort)
+LAST_DAY := $(shell printf "%s\n" $(SOLUTIONS) | tail -n 1)
+DAY := $(shell printf "%02d" $(d))
+NEXT := $(shell find solutions -maxdepth 1 -type d -printf "%f\n" | grep -E '^[0-9]{2}$$' | sort) + 1
 
 run:
-	@python3 solutions/$(DAY)/solution.py input
+	@echo 'Running day $(if $(d),$(DAY),$(LAST_DAY))'
+	@python3 -m solutions.$(if $(d),$(DAY),$(LAST_DAY)).solution
 
 test:
-	@python3 solutions/$(DAY)/solution.py test
+	@echo 'Testing day $(if $(d),$(DAY),$(LAST_DAY))'
+	@python3 -m solutions.$(if $(d),$(DAY),$(LAST_DAY)).solution test
 
-clean:
-	find . -name '*.pyc' -delete
-
-init:
-	@mkdir -p solutions/$(DAY)
-	@touch solutions/$(DAY)/input.txt solutions/$(DAY)/test.txt
-	@cp template/solution.py solutions/$(DAY)/solution.py
-	@echo "done"
+new:
+	@next=$$(printf "%02d" $$(echo $$(ls solutions | grep -E '^[0-9]{2}$$' | sort | tail -n1) + 1 | bc)); \
+	mkdir -p solutions/$$next; \
+	cp template/solution.py solutions/$$next/solution.py; \
+	touch solutions/$$next/input.txt; \
+	touch solutions/$$next/test.txt; \
+	echo $$next

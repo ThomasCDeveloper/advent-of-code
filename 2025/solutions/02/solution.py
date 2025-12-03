@@ -1,4 +1,6 @@
 import sys
+import utils
+from pathlib import Path
 
 
 def parse_input(file_path):
@@ -51,17 +53,8 @@ def part2(ranges):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in ("input", "test"):
-        print("Usage: python solution.py [input|test]")
-        sys.exit(1)
-
-    file_path = (
-        "./solutions/02/input.txt"
-        if sys.argv[1] == "input"
-        else "./solutions/02/test.txt"
-    )
-
-    data = parse_input(file_path)
-    ranges = [[int(a.split("-")[0]), int(a.split("-")[1])] for a in data[0].split(",")]
-    print("Part 1:", part1(ranges))
-    print("Part 2:", part2(ranges))
+    BASE = Path(__file__).resolve().parent
+    file_path = BASE / utils.get_mode(sys.argv)
+    data = utils.parse_input_lines(file_path)
+    print("Part 1:", part1(data))
+    print("Part 2:", part2(data))

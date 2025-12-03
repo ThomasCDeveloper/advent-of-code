@@ -1,9 +1,6 @@
 import sys
-
-
-def parse_input(file_path):
-    with open(file_path) as f:
-        return [line.strip() for line in f.readlines()]
+import utils
+from pathlib import Path
 
 
 def part1(data):
@@ -15,10 +12,8 @@ def part2(data):
 
 
 if __name__ == "__main__":
-    file_path = "input.txt"
-    if sys.argv[1] == "test":
-        file_path = "test.txt"
-
-    data = parse_input(file_path)
+    BASE = Path(__file__).resolve().parent
+    file_path = BASE / utils.get_mode(sys.argv)
+    data = utils.parse_input(file_path)
     print("Part 1:", part1(data))
     print("Part 2:", part2(data))
