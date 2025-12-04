@@ -3,45 +3,40 @@ import utils
 from pathlib import Path
 
 
-def get_cell_status(x, y, data):
-    if y < 0 or y > len(data) - 1 or x < 0 or x > len(data[0]) - 1:
-        return "."
-    else:
-        return data[y][x]
-
-
 def part1(data: list[str]) -> int:
     count = 0
-    for y in range(len(data)):
-        for x in range(len(data[0])):
-            if data[y][x] == "@":
-                sum = -1
-                for dx in [-1, 0, 1]:
-                    for dy in [-1, 0, 1]:
-                        if get_cell_status(x + dx, y + dy, data) == "@":
-                            sum += 1
-                if sum < 4:
-                    count += 1
+    rolls = {(x, y) for y, l in enumerate(data) for x, c in enumerate(l) if c == "@"}
+    for x, y in rolls:
+        sum = -1
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                if (x + dx, y + dy) in rolls:
+                    sum += 1
+        if sum < 4:
+            count += 1
     return count
 
 
 def part2(data: list[str]) -> int:
+    rolls = {(x, y) for y, l in enumerate(data) for x, c in enumerate(l) if c == "@"}
     count = 0
-    changed = True
+    changed = 1
     while changed:
+        to_remove = set()
         changed = False
-        for y in range(len(data)):
-            for x in range(len(data[0])):
-                if data[y][x] == "@":
-                    sum = -1
-                    for dx in [-1, 0, 1]:
-                        for dy in [-1, 0, 1]:
-                            if get_cell_status(x + dx, y + dy, data) == "@":
-                                sum += 1
-                    if sum < 4:
-                        changed = True
-                        data[y] = data[y][:x] + "." + data[y][x + 1 :]
-                        count += 1
+        for x, y in rolls:
+            sum = -1
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if (x + dx, y + dy) in rolls:
+                        sum += 1
+            if sum < 4:
+                to_remove.add((x, y))
+        if to_remove:
+            rolls -= to_remove
+            count += len(to_remove)
+            changed = True
+
     return count
 
 
