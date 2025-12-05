@@ -2,8 +2,22 @@ package utils
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 )
+
+func GetPath(args []string) string {
+	if len(os.Args) < 3 {
+		panic("missing day argument")
+	}
+	day := args[2]
+	filename := "input.txt"
+	if args[1] == "test" {
+		filename = "test.txt"
+	}
+	path := filepath.Join("solutions", day, filename)
+	return path
+}
 
 func Check(e error) {
 	if e != nil {
