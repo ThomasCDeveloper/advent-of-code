@@ -11,3 +11,4 @@ https://adventofcode.com/2023
 | 05  | 2/2    | Hard       | -       | 1.4 ms ± 0.6 ms     |
 | 06  | 2/2    | Easy       | -       | 743.5 µs ± 537.9 µs |
 | 07  | 2/2    | Easy       | -       | 9.4 ms ± 1.4 ms     |
+| 08  | 2/2    | Easy       | -       | 4.4 ms ± 1.0 ms     |
