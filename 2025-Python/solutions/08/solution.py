@@ -2,7 +2,6 @@ import sys
 import utils
 from pathlib import Path
 import heapq
-import numpy as np
 
 
 def distance(c_a, c_b):
