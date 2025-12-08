@@ -1,84 +1,74 @@
 import sys
 import utils
 from pathlib import Path
+import heapq
+import numpy as np
 
 
 def distance(c_a, c_b):
     return (c_a[0] - c_b[0]) ** 2 + (c_a[1] - c_b[1]) ** 2 + (c_a[2] - c_b[2]) ** 2
 
 
-def part1(cubes, iter):
-    couples = []
-    for a, c_a in enumerate(cubes[:-1]):
-        for b, c_b in enumerate(cubes[a + 1 :]):
-            couples.append([c_a, c_b])
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+        self.size = [1] * n
 
-    pairs = sorted(couples, key=lambda x: distance(x[0], x[1]))[:iter]
+    def find(self, x):
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
 
-    groups = []
+    def union(self, a, b):
+        ra = self.find(a)
+        rb = self.find(b)
+        if ra == rb:
+            return ra
 
-    for a, b in pairs:
-        matching = []
-        for g in groups:
-            if any(x == a or x == b for x in g):
-                matching.append(g)
-
-        if not matching:
-            groups.append([a, b])
+        if self.rank[ra] < self.rank[rb]:
+            self.parent[ra] = rb
+            self.size[rb] += self.size[ra]
+            return rb
+        elif self.rank[rb] < self.rank[ra]:
+            self.parent[rb] = ra
+            self.size[ra] += self.size[rb]
+            return ra
         else:
-            merged = []
-            for g in matching:
-                merged.extend(g)
-                groups.remove(g)
+            self.parent[rb] = ra
+            self.rank[ra] += 1
+            self.size[ra] += self.size[rb]
+            return ra
 
-            merged.extend([a, b])
 
-            final = []
-            for x in merged:
-                if not any(x == y for y in final):
-                    final.append(x)
+def part1(cubes, pairs, n, iter):
+    smallest = heapq.nsmallest(iter, pairs, key=lambda p: p[0])
 
-            groups.append(final)
+    uf = UnionFind(n)
+    for _, a, b in smallest:
+        uf.union(a, b)
 
-    sizes = sorted(list(map(len, groups)), reverse=True)
+    group_map = {}
+    for i in range(n):
+        r = uf.find(i)
+        group_map.setdefault(r, 0)
+        group_map[r] += 1
+
+    sizes = sorted(group_map.values(), reverse=True)
     return sizes[0] * sizes[1] * sizes[2]
 
 
-def part2(cubes):
-    couples = []
-    for a, c_a in enumerate(cubes[:-1]):
-        for b, c_b in enumerate(cubes[a + 1 :]):
-            couples.append([c_a, c_b])
+def part2(cubes, pairs, n):
+    pairs.sort(key=lambda p: p[0])
 
-    pairs = sorted(couples, key=lambda x: distance(x[0], x[1]))
+    uf = UnionFind(n)
 
-    groups = []
-    for a, b in pairs:
-        matching = []
-        for g in groups:
-            if any(x == a or x == b for x in g):
-                matching.append(g)
+    for _, a, b in pairs:
+        root = uf.union(a, b)
 
-        if not matching:
-            groups.append([a, b])
-        else:
-            merged = []
-            for g in matching:
-                merged.extend(g)
-                groups.remove(g)
-
-            merged.extend([a, b])
-
-            final = []
-            for x in merged:
-                if not any(x == y for y in final):
-                    final.append(x)
-
-            groups.append(final)
-
-        sizes = sorted(list(map(len, groups)), reverse=True)
-        if sizes[0] == len(data):
-            return a[0] * b[0]
+        if uf.size[root] == n:
+            return cubes[a][0] * cubes[b][0]
 
     return "not found"
 
@@ -89,8 +79,12 @@ if __name__ == "__main__":
     file_path = BASE / mode
     data = utils.parse_input_lines(file_path)
     cubes = [list(map(int, x.split(","))) for x in data]
+    n = len(cubes)
+    pairs = [
+        (distance(cubes[a], cubes[b]), a, b) for a in range(n) for b in range(a + 1, n)
+    ]
     print(
         "Part 1:",
-        part1(cubes, 10 if mode == "test.txt" else 1000),
+        part1(cubes, pairs, n, 10 if mode == "test.txt" else 1000),
     )
-    print("Part 2:", part2(cubes))
+    print("Part 2:", part2(cubes, pairs, n))
