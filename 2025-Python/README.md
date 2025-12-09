@@ -12,7 +12,7 @@ https://adventofcode.com/2025
 | 06  | 2/2    | Easy        | A bit headscratcher but easy still                                                                                         | 29.7 ms ± 3.3 ms   |
 | 07  | 2/2    | Mild        | I tried to anticipate P2 during P1 and made my work harder (for someone who doesn't try to be smart it is an easy problem) | 29.9 ms ± 3.6 ms   |
 | 08  | 2/2    | Hard        | Truly the first hard problem. Even P1 is not easy and my P2 is painfully slow                                              | 62.083 s ± 2.982 s |
-| 09  |        |             |                                                                                                                            |                    |
+| 09  | 2/2    | Mild        | Not very hard but probably highly optimizable                                                                              | 2.818 s ± 0.031 s  |
 | 10  |        |             |                                                                                                                            |                    |
 | 11  |        |             |                                                                                                                            |                    |
 | 12  |        |             |                                                                                                                            |                    |
