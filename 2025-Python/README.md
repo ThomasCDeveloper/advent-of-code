@@ -14,5 +14,5 @@ https://adventofcode.com/2025
 | 08  | 2/2    | Hard        | Truly the first hard problem. Even P1 is not easy and my P2 is painfully slow                                              | 62.083 s ± 2.982 s  |
 | 09  | 2/2    | Mild        | Not very hard but probably highly optimizable                                                                              | 2.818 s ± 0.031 s   |
 | 10  | 2/2    | Hard        | Very hard, but also very interesting problem (maybe tho most interesting one this year)                                    | 145.516 s ± 2.771 s |
-| 11  |        |             |                                                                                                                            |                     |
+| 11  | 2/2    | Mild        | Not very hard, nice problem                                                                                                | 21.0 ms ± 2.3 ms    |
 | 12  |        |             |                                                                                                                            |                     |
