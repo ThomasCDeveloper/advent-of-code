@@ -1,5 +1,0 @@
-(executable
- (public_name chameau)
- (name main)
- (libraries core re)
- (modules (:standard)))

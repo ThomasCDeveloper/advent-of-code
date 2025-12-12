@@ -1,32 +1,26 @@
-.PHONY: all
-all: build
+.PHONY: run test new time
 
-# Build the project
-.PHONY: build
-build:
-	dune build
+SOLUTIONS := $(shell find solutions -maxdepth 1 -type d -printf "%f\n" | grep -E '^[0-9]{2}$$' | sort)
+LAST_DAY := $(shell printf "%s\n" $(SOLUTIONS) | tail -n 1)
+DAY := $(shell printf "%02d" $(d))
 
-.PHONY: watch
-watch:
-	DUNE_CONFIG__GLOBAL_LOCK=disabled dune build @all --watch
-
-# Clean build artifacts
-.PHONY: clean
-clean:
-	dune clean
-
-# Run the project for a specific day
-.PHONY: run
 run:
-	@if [ -z "$(DAY)" ]; then \
-		read -p "Enter the day number to run: " DAY; \
-	fi; \
-	_build/default/bin/main.exe $$DAY
+	@echo "Running day $(if $(d),$(DAY),$(LAST_DAY))"
+	@dune exec ./solutions/$(if $(d),$(DAY),$(LAST_DAY))/solution.exe input $(if $(d),$(DAY),$(LAST_DAY))
 
-# Run and time the project for a specific day
-.PHONY: time
+test:
+	@echo "Testing day $(if $(d),$(DAY),$(LAST_DAY))"
+	@dune exec ./solutions/$(if $(d),$(DAY),$(LAST_DAY))/solution.exe test $(if $(d),$(DAY),$(LAST_DAY))
+
+new:
+	@next=$$(printf "%02d" $$(echo $$(ls solutions | grep -E '^[0-9]{2}$$' | sort | tail -n1) + 1 | bc)); \
+	mkdir -p solutions/$$next; \
+	cp template/solution.ml solutions/$$next/solution.ml; \
+	cp template/dune solutions/$$next/dune; \
+	touch solutions/$$next/input.txt; \
+	touch solutions/$$next/test.txt; \
+	echo $$next
+
 time:
-	@if [ -z "$(DAY)" ]; then \
-		read -p "Enter the day number to run: " DAY; \
-	fi; \
-	hyperfine "_build/default/bin/main.exe $$DAY" -i
+	@echo "Timing day $(if $(d),$(DAY),$(LAST_DAY))"
+	@hyperfine --warmup 3 'dune exec ./solutions/$(if $(d),$(DAY),$(LAST_DAY))/solution.exe input $(if $(d),$(DAY),$(LAST_DAY))'
