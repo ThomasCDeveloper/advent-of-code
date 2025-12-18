@@ -153,17 +153,73 @@ def solve_integer_linear(A, b):
     return best
 
 
-def part2(machines):
-    total = 0
-    for i, m in enumerate(machines):
-        A = m.buttons
-        A = list(map(list, zip(*A)))
-        b = m.joltage
+def part2(hailstones):
+    import fractions
 
-        sol = solve_integer_linear(A, b)
-        total += sum(sol)
+    F = fractions.Fraction
 
-    return total
+    def eq(h1, h2):
+        (x1, y1, z1), (vx1, vy1, vz1) = h1
+        (x2, y2, z2), (vx2, vy2, vz2) = h2
+
+        # (V1 - V0) x (P1 - P0) = 0
+        return [
+            [
+                0,
+                vz1 - vz2,
+                vy2 - vy1,
+                0,
+                z2 - z1,
+                y1 - y2,
+                y1 * (vz1 - vz2) + z1 * (vy2 - vy1),
+            ],
+            [
+                vz2 - vz1,
+                0,
+                vx1 - vx2,
+                z1 - z2,
+                0,
+                x2 - x1,
+                x1 * (vz2 - vz1) + z1 * (vx1 - vx2),
+            ],
+            [
+                vy1 - vy2,
+                vx2 - vx1,
+                0,
+                y2 - y1,
+                x1 - x2,
+                0,
+                x1 * (vy1 - vy2) + y1 * (vx2 - vx1),
+            ],
+        ]
+
+    # 3 grêlons suffisent
+    h0, h1, h2 = hailstones[:3]
+
+    M = []
+    for row in eq(h0, h1)[:2] + eq(h0, h2)[:2] + eq(h1, h2)[:2]:
+        M.append([F(v) for v in row])
+
+    # Gauss-Jordan 6x6
+    for i in range(6):
+        for j in range(i, 6):
+            if M[j][i] != 0:
+                M[i], M[j] = M[j], M[i]
+                break
+
+        pivot = M[i][i]
+        for k in range(i, 7):
+            M[i][k] /= pivot
+
+        for r in range(6):
+            if r != i:
+                f = M[r][i]
+                for c in range(i, 7):
+                    M[r][c] -= f * M[i][c]
+
+    x0, y0, z0, vx0, vy0, vz0 = [M[i][6] for i in range(6)]
+
+    return x0 + y0 + z0
 
 
 if __name__ == "__main__":
